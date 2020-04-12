@@ -6,12 +6,17 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        index = dict()
-        i = 0
         maxLen = 0
-        for j in range(len(s)):
-            if s[j] in index.keys():
-                i = max(index[s[j]], i)
-            maxLen = max(maxLen, j-i+1)
-            index[s[j]] = j+1
+        start = 0
+        dic = {}
+        for i in range(len(s)):
+            cur = s[i]
+            if cur not in dic.keys():
+                dic[cur] = i
+            else:
+                if dic[cur] + 1 > start:
+                    start = dic[cur] + 1
+                dic[cur] = i
+            if i - start + 1 > maxLen:
+                maxLen = i - start + 1
         return maxLen
